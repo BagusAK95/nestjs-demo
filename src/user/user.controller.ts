@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/auth.guard';
 import { RoleGuard } from 'src/role/role.guard';
 import { Roles } from '../role/role.decorator';
@@ -8,13 +8,12 @@ import { UserService } from './user.service';
 
 @Controller('user')
 @UseGuards(JwtGuard, RoleGuard)
-@Roles(UserRole.ADMIN)
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
-  constructor(
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
 
   @Post()
+  @Roles(UserRole.ADMIN)
   async save(@Body() user: User) {
     return await this.userService.save(user)
   }
@@ -30,11 +29,13 @@ export class UserController {
   }
 
   @Put(':id')
+  @Roles(UserRole.ADMIN)
   async update(@Param('id') id: string, @Body() user: User) {
     return await this.userService.update(id, user)
   }
 
   @Delete(':id')
+  @Roles(UserRole.ADMIN)
   async delete(@Param('id') id: string) {
     return await this.userService.delete(id)
   }

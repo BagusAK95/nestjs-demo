@@ -8,9 +8,7 @@ import { UserSubscriber } from "./user.subscriber";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      User
-    ])
+    TypeOrmModule.forFeature([ User ])
   ],
   controllers: [UserController],
   providers: [UserService, UserSubscriber],
