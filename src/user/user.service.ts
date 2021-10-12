@@ -33,10 +33,16 @@ export class UserService {
 
   async findOne(id: string) {
     try {
+      const cache: User = await this.cacheManager.get(`userId:${id}`)
+      if (cache) {
+        return cache 
+      }
       const user = await this.usersRepo.findOne(id);
       if (!user) {
         throw new NotFoundException('Invalid User ID')
       }
+
+      await this.cacheManager.set(`userId:${id}`, user)
 
       return user
     } catch (error) {
@@ -46,16 +52,10 @@ export class UserService {
 
   async findByEmail(email: string) {
     try {
-      const cache: User = await this.cacheManager.get(`userEmail:${email}`)
-      if (cache) {
-        return cache 
-      }
       const user = await this.usersRepo.findOne({ email });
       if (!user) {
         throw new NotFoundException('Invalid Email')
       }
-
-      await this.cacheManager.set(`userEmail:${email}`, user)
 
       return user
     } catch (error) {
