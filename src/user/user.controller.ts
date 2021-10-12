@@ -1,6 +1,6 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
-import { JwtGuard } from 'src/auth/auth.guard';
-import { RoleGuard } from 'src/role/role.guard';
+import { JwtGuard } from '../auth/auth.guard';
+import { RoleGuard } from '../role/role.guard';
 import { Roles } from '../role/role.decorator';
 import { UserRole } from './dto/user.role.dto';
 import { User } from './user.entity';
