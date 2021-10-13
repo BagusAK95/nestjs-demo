@@ -5,7 +5,6 @@ import { ConfigType } from '@nestjs/config';
 import jwtConfig from '../configuration/jwt.config';
 import { UserService } from '../user/user.service';
 import { Cache } from 'cache-manager'
-import { User } from '../user/user.entity';
 
 @Injectable()
 export class AuthStrategy extends PassportStrategy(Strategy) {
@@ -23,10 +22,10 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any): Promise<User> {
+  async validate(payload: any) {
     const { id } = payload
 
-    const cache: any = await this.cacheManager.get(`userProfile:${id}`)
+    const cache = await this.cacheManager.get(`userProfile:${id}`)
     if (cache) {
       return cache
     }
@@ -36,6 +35,7 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException()
     }
 
+    delete user.password
     await this.cacheManager.set(`userProfile:${id}`, user)
 
     return user

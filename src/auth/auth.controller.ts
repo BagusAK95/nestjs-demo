@@ -1,9 +1,8 @@
-import { Controller, Get, Req, Post, UseGuards, Body, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Req, Post, UseGuards, Body } from '@nestjs/common';
 import { JwtGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
-@UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private authService: AuthService) {}
 
