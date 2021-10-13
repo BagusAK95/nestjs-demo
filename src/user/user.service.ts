@@ -1,8 +1,7 @@
-import { CACHE_MANAGER, HttpException, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
-import { Cache } from 'cache-manager'
 
 @Injectable()
 export class UserService {
@@ -10,9 +9,7 @@ export class UserService {
 
   constructor(
     @InjectRepository(User)
-    private usersRepo: Repository<User>,
-    @Inject(CACHE_MANAGER)
-    private cacheManager: Cache
+    private usersRepo: Repository<User>
   ) {}
 
   async save(user: User) {
@@ -33,16 +30,10 @@ export class UserService {
 
   async findOne(id: string) {
     try {
-      const cache: User = await this.cacheManager.get(`userId:${id}`)
-      if (cache) {
-        return cache 
-      }
       const user = await this.usersRepo.findOne(id);
       if (!user) {
         throw new NotFoundException('Invalid User ID')
       }
-
-      await this.cacheManager.set(`userId:${id}`, user)
 
       return user
     } catch (error) {

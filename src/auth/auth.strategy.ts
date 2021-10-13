@@ -1,15 +1,19 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import jwtConfig from '../configuration/jwt.config';
 import { UserService } from '../user/user.service';
+import { Cache } from 'cache-manager'
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class AuthStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(jwtConfig.KEY)
     private config: ConfigType<typeof jwtConfig>,
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
     private userService: UserService,
   ) {
     super({
@@ -19,13 +23,20 @@ export class AuthStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
+  async validate(payload: any): Promise<User> {
     const { id } = payload
+
+    const cache: any = await this.cacheManager.get(`userProfile:${id}`)
+    if (cache) {
+      return cache
+    }
 
     const user = await this.userService.findOne(id)
     if (!user) {
       throw new UnauthorizedException()
     }
+
+    await this.cacheManager.set(`userProfile:${id}`, user)
 
     return user
   }
