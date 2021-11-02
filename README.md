@@ -40,10 +40,10 @@
 - [x] Exception Filters
 - [x] Versioning
 - [x] File upload
+- [x] HTTP module
 - [ ] Queue
 - [ ] Task scheduling
 - [ ] Events
-- [ ] HTTP module
 
 ## Installation
 
