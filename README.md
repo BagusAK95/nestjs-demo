@@ -39,7 +39,11 @@
 - [x] Logging
 - [x] Exception Filters
 - [x] Versioning
+- [x] File upload
 - [ ] Queue
+- [ ] Task scheduling
+- [ ] Events
+- [ ] HTTP module
 
 ## Installation
 
