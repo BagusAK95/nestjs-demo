@@ -2,13 +2,16 @@ import { Controller, Get, Req, Post, UseGuards, Body } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 
-@Controller('auth')
+@Controller({
+  path: 'auth',
+  version: '1',
+})
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signin')
   async signin(@Body() body: any) {
-    const { email, password } = body
+    const { email, password } = body;
     return this.authService.signin(email, password);
   }
 
