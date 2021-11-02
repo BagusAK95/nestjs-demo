@@ -1,5 +1,5 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
-import { JwtGuard } from '../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { RoleGuard } from '../role/role.guard';
 import { Roles } from '../role/role.decorator';
 import { UserRole } from './dto/user.role.dto';
@@ -7,7 +7,7 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 
 @Controller('user')
-@UseGuards(JwtGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(private userService: UserService) {}
