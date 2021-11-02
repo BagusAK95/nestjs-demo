@@ -38,6 +38,7 @@
 - [x] Validation
 - [x] Logging
 - [x] Exception Filters
+- [x] Versioning
 - [ ] Queue
 
 ## Installation
