@@ -5,6 +5,7 @@ import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { UploadModule } from './upload/upload.module';
+import { HttpModule } from './http/http.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { UploadModule } from './upload/upload.module';
     CacheModule,
     AuthModule,
     UserModule,
-    UploadModule
+    UploadModule,
+    HttpModule
   ]
 })
 export class AppModule {}
