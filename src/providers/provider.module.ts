@@ -4,7 +4,5 @@ import { PostgresModule } from './database/postgres/postgres.module';
 
 @Module({
   imports: [RedisModule, PostgresModule],
-  controllers: [],
-  providers: [],
 })
 export class ProviderModule {}

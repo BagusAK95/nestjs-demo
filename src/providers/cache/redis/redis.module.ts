@@ -1,9 +1,9 @@
-import { CacheModule as NestCacheModule, Module } from "@nestjs/common";
+import { CacheModule, Module } from "@nestjs/common";
 import { RedisOption } from "./redis.option";
 
 @Module({
   imports:[
-    NestCacheModule.registerAsync({
+    CacheModule.registerAsync({
       useClass: RedisOption,
       isGlobal: true,
     })
