@@ -1,21 +1,19 @@
 import { Module } from '@nestjs/common';
-import { CacheModule } from './cache/cache.module';
 import { ConfigModule } from './config/config.module';
-import { DatabaseModule } from './database/database.module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './authentication/auth.module';
 import { UploadModule } from './upload/upload.module';
-import { HttpModule } from './http/http.module';
+import { HttpModule } from './common/http/http.module';
+import { ProviderModule } from './providers/provider.module';
+import { ModelModule } from './models/model.module';
 
 @Module({
   imports: [
     ConfigModule,
-    DatabaseModule,
-    CacheModule,
+    ProviderModule,
     AuthModule,
-    UserModule,
+    ModelModule,
     UploadModule,
-    HttpModule
-  ]
+    HttpModule,
+  ],
 })
 export class AppModule {}

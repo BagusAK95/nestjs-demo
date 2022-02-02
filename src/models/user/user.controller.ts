@@ -10,9 +10,9 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthGuard } from '../auth/auth.guard';
-import { RoleGuard } from '../role/role.guard';
-import { Roles } from '../role/role.decorator';
+import { JwtGuard } from '../../authentication/jwt.guard';
+import { RoleGuard } from '../../authentication/role.guard';
+import { Roles } from '../../authentication/role.decorator';
 import { UserRole } from './dto/user.role.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
@@ -21,7 +21,7 @@ import { UserService } from './user.service';
   path: 'user',
   version: '1',
 })
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(JwtGuard, RoleGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(private userService: UserService) {}

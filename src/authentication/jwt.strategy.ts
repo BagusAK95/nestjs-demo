@@ -2,12 +2,12 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { CACHE_MANAGER, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import jwtConfig from '../config/jwt.config';
-import { UserService } from '../user/user.service';
+import jwtConfig from '../config/jwt/jwt.config';
+import { UserService } from '../models/user/user.service';
 import { Cache } from 'cache-manager'
 
 @Injectable()
-export class AuthStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(jwtConfig.KEY)
     private config: ConfigType<typeof jwtConfig>,

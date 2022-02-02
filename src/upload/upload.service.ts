@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { HttpService } from '../http/http.service';
+import { HttpService } from '../common/http/http.service';
 import * as FormData from 'form-data';
 import * as fs from 'fs';
 

@@ -1,22 +1,22 @@
 import { Module } from "@nestjs/common";
-import { UserModule } from "../user/user.module";
+import { UserModule } from "../models/user/user.module";
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from "@nestjs/jwt";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
-import { AuthConfig } from "./auth.config";
-import { AuthStrategy } from "./auth.strategy";
+import { JwtOption } from "./jwt.option";
+import { JwtStrategy } from "./jwt.strategy";
 
 @Module({
   imports: [
     UserModule,
     PassportModule,
     JwtModule.registerAsync({
-      useClass: AuthConfig
+      useClass: JwtOption
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthStrategy],
+  providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

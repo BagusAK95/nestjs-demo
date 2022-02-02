@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import httpConfig from '../config/http.config';
+import httpConfig from '../../config/http/http.config';
 import * as axios from 'axios';
 
 @Injectable()

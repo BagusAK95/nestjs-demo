@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { DatabaseConfig } from "./database.config";
+import { PostgresOption } from "./postgres.option";
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useClass: DatabaseConfig,
+      useClass: PostgresOption,
     })
   ],
   controllers: [],
   providers: [],
 })
-export class DatabaseModule {}
+export class PostgresModule {}
